@@ -28,11 +28,41 @@ Mjml.configure do |config|
 end
 ```
 
+You have to install mjml compiler via `npm install mjml` to use this gem
+
+The `exec_path` will be set default as `node_modules/mjml/bin/mjml`. If you use heroku you can config [multiple buildpacks](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app) to make it support nodejs
+
+#### Mjmj#render
+
+`Mjml.render(template_path, template_variable, binding)`: this render method accept three parameters
++ template_path: the location of your template
++ template_variable: these variables which be passed to template so that you can use something like this `<div><%= name %></div>`
++ binding: you can get something like mailer binding to support rails path helper
+
 #### Mailer
 
+You can use in mailer
+
 ```ruby
-body = Mjml.render("#{Dir.pwd}/app/views/template") # => template.mjml
+body = Mjml.render("#{Dir.pwd}/app/views/template", { name: 'Mjml parser' }) # => template.mjml
 mail(to: xxx, subject: xxx, body: body, content_type: 'text/html')
+```
+
+and `template.mjml`
+```html
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-image width="100" src="https://mjml.io/assets/img/logo-small.png"></mj-image>
+          <mj-divider border-color="#F45E43"></mj-divider>
+          <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello <%= name %></mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 ## Development
