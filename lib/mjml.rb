@@ -10,7 +10,7 @@ module Mjml
     Render.new(path, args, instance).execute
   end
 
-  def configure
+  def self.configure
     yield Config
   end
 end
