@@ -65,6 +65,16 @@ and `template.mjml`
 </mjml>
 ```
 
+To support render partial inside template, you have to add this into your mime types
+```ruby
+Mime::Type.register_alias "text/plain", :mjml
+```
+
+and you can use in `template.mjml`
+```ruby
+<%= render partial: 'xxxx', formats: [:mjml] %>
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
