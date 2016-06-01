@@ -23,7 +23,7 @@ module Mjml
     end
 
     def generate_html_file
-      `#{Config.exec_path} #{mjml_path} -o #{html_path}`
+      `#{Config.exec_path.chomp} #{mjml_path} -o #{html_path}`
     end
 
     def read_html_file
