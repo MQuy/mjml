@@ -30,7 +30,7 @@ end
 
 You have to install mjml compiler via `npm install mjml` to use this gem
 
-The `exec_path` will be set default as `node_modules/mjml/bin/mjml`. If you use heroku you can config [multiple buildpacks](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app) to make it support nodejs
+In case of you don't set `exec_path`, The `exec_path` will be set default as `node_modules/mjml/bin/mjml`. If you use heroku you can config [multiple buildpacks](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app) to make it support nodejs
 
 #### Mjmj#render
 
@@ -44,7 +44,7 @@ The `exec_path` will be set default as `node_modules/mjml/bin/mjml`. If you use 
 You can use in mailer
 
 ```ruby
-body = Mjml.render("#{Dir.pwd}/app/views/template", { name: 'Mjml parser' }) # => template.mjml
+body = Mjml.render("#{Dir.pwd}/app/views/template.mjml", { name: 'Mjml parser' })
 mail(to: xxx, subject: xxx, body: body, content_type: 'text/html')
 ```
 
