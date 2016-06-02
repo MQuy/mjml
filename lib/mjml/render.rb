@@ -1,11 +1,11 @@
 module Mjml
   class Render
-    attr_accessor :path, :args, :content, :instance
+    attr_accessor :path, :scope, :content, :block
 
-    def initialize(path, args, instance)
+    def initialize(path, scope, block)
       @path = path
-      @args = args
-      @instance = instance || binding
+      @scope = scope
+      @block = block
     end
 
     def execute
@@ -43,14 +43,10 @@ module Mjml
       @html_path ||= "#{Dir.pwd}/tmp/template-#{SecureRandom.uuid}.html"
     end
 
-    def template_variables
-      @template_variables ||= args.inject(instance) { |b, item| b.local_variable_set(item[0], item[1]) and b }
-    end
-
     def template_mjml
       @template_mjml ||= lambda do
-        template_erb = File.open(path).read
-        ERB.new(template_erb).result(template_variables)
+        erb = Tilt::ERBTemplate.new(path)
+        erb.render(scope) { block&.call }
       end.call
     end
   end
