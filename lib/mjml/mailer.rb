@@ -3,7 +3,7 @@ module Mjml
     def mjml(headers, &block)
       scope = Mjml::Scope.new(self, headers[:template_variables])
 
-      headers[:subject] ||= I18n.t("mailers.#{mailer_name}.#{action_name}.subject")
+      headers[:subject] ||= I18n.t("mailers.#{mailer_name}.#{action_name}.subject", headers[:subject_variables])
       headers[:template_name] ||= action_name
       headers[:template_path] ||= "#{Dir.pwd}/app/views/mailers/#{mailer_name}"
       headers[:body] = mjml_content(headers, scope)
