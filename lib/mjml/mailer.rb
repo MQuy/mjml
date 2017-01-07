@@ -28,7 +28,7 @@ module Mjml
 
     def mjml_content(headers, scope)
       content =
-        if _layout
+        if self.class._layout
           mjml_layout_content(headers, scope)
         else
           mjml_template_content(headers, scope)
@@ -38,7 +38,7 @@ module Mjml
     end
 
     def mjml_layout_content(headers, scope)
-      erb_layout = Tilt::ERBTemplate.new("#{Dir.pwd}/app/views/layouts/#{_layout}.mjml")
+      erb_layout = Tilt::ERBTemplate.new("#{Dir.pwd}/app/views/layouts/#{self.class._layout}.mjml")
       erb_template = Tilt::ERBTemplate.new("#{headers[:template_path]}/#{headers[:template_name]}.mjml")
       erb_layout.render(scope) { erb_template.render(scope) }
     end
