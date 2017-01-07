@@ -15,9 +15,13 @@ module Mjml
   end
 
   def self.template(template_mjml)
+    retries ||= 0
     mjml_path = "#{Dir.pwd}/tmp/template-#{SecureRandom.uuid}.mjml"
     File.write(mjml_path, template_mjml)
     render(mjml_path)
+  rescue Errno::ENOENT
+    Dir.mkdir "#{Dir.pwd}/tmp"
+    retry if (retries += 1) < 3
   end
 
   def self.configure
